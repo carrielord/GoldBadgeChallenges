@@ -68,7 +68,7 @@ namespace _03_Badge_Program
         {
             Badge newBadge = new Badge();
             List<string> newBadgeDoors = new List<string>();
-            Console.Write("What is the number on the badge?");
+            Console.Write("What is the number on the badge? ");
             string badgeIDString = Console.ReadLine();
             int badgeID;
             bool badgeIDParse = false;
@@ -81,20 +81,20 @@ namespace _03_Badge_Program
                 }
                 else
                 {
-                    Console.Write("Please enter a number only");
-                    badgeIDString = Console.ReadLine();
+                    Console.Write("Please enter a number only ");
+                    badgeIDString = Console.ReadLine(); 
                 }
             }
-            Console.Write("List a door that it needs access to:");
+            Console.Write("List a door that it needs access to: ");
             newBadgeDoors.Add(Console.ReadLine());
             string otherDoors = "y";
             while(otherDoors != "n")
             {
-                Console.Write("Any other doors(y/n)?");
+                Console.Write("Any other doors(y/n)? ");
                 otherDoors = Console.ReadLine().ToLower();
                 if(otherDoors == "y")
                 {
-                    Console.Write("List a door that it needs access to:");
+                    Console.Write("List a door that it needs access to: ");
                     newBadgeDoors.Add(Console.ReadLine());
                 }
                 else if (otherDoors == "n")
@@ -103,8 +103,8 @@ namespace _03_Badge_Program
                 }
                 else
                 {
-                    Console.Write("Invalid entry. Please enter y or n only:");
-                    otherDoors = Console.ReadLine().ToLower();
+                    Console.Write("Invalid entry. Please enter y or n only: ");
+                    otherDoors = Console.ReadLine().ToLower(); 
                 }
             }
             newBadge.DoorName = newBadgeDoors;
@@ -113,7 +113,7 @@ namespace _03_Badge_Program
 
         private void EditBadge()
         {
-            Console.Write("What is the badge number to update?");
+            Console.Write("What is the badge number to update? ");
             string badgeIDString = Console.ReadLine();
             int badgeID = 0;
             bool badgeIDParse = false;
@@ -127,16 +127,16 @@ namespace _03_Badge_Program
                 }
                 else
                 {
-                    Console.Write("Please enter a number only");
+                    Console.Write("Please enter a number only ");
                     badgeIDString = Console.ReadLine();
                 }
             }
             Console.Write($"{badgeIDString} has access to doors ");
                 foreach(string doorString in doorNames)
             {
-                Console.Write(doorString);
+                Console.Write(doorString + " ");
             }
-                Console.Write("What would you like to do?\n" +
+                Console.WriteLine("What would you like to do?\n" +
                 "1. Remove a door\n" +
                 "2. Add a door");
                 string actionSelection = Console.ReadLine();
@@ -147,17 +147,28 @@ namespace _03_Badge_Program
                     switch (selectionInt)
                     {
                         case 1:
-                            Console.Write("Which door would you like to remove?");
+                            Console.Write("Which door would you like to remove? ");
                         _badgeRepository.DeleteBadgeDoors(badgeID, Console.ReadLine());
                             Console.Write($"Door removed. \n" +
-                                $"{badgeIDString} has access to doors");
-                            foreach(in)
+                                $"{badgeIDString} has access to doors \n" +
+                                "Press any key to continue...");
+                        Console.ReadKey();
+                            foreach(string doorString in doorNames)
+                        {
+                            Console.Write(doorString + " ");
+                        }
                             break;
                         case 2:
                             Console.Write("Which door would you like to add?");
                         _badgeRepository.AddBadgeDoors(badgeID, Console.ReadLine());
                         Console.WriteLine($"Door added. \n" +
-                                $"{badgeIDString} has access to doors {doorNamesString}");
+                                $"{badgeIDString} has access to doors \n" +
+                                "Press any key to continue...");
+                        Console.ReadKey();
+                            foreach(string doorString in doorNames)
+                        {
+                            Console.Write(doorString + " ");
+                        }
                         break;
                         default:
                             Console.WriteLine("Please select valid number 1 or 2.\n" +
@@ -180,7 +191,12 @@ namespace _03_Badge_Program
             Console.WriteLine("{0,-10} {1,-15}", "Badge #", "Door Access");
             foreach(KeyValuePair<int, List<string>> badge in badgeDictionary)
             {
-                Console.WriteLine("{0,-10}{1,-15}", badge.Key, badge.Value);
+                Console.Write("{0,-10}", badge.Key);
+                foreach(string doorString in badge.Value)
+                {
+                    Console.Write("{0,5}  ", doorString);
+                }
+                Console.WriteLine(" ");
             }
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
